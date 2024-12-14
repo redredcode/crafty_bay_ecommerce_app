@@ -113,7 +113,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   height: 24,
                 ),
 
-                /// TODO: enable resend code button when the countdown is finished, and make the code expiration line vanish
                 Obx(
                   () => Visibility(
                     visible: !_canResend.value,
