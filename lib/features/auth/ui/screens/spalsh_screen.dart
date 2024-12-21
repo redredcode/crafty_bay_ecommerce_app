@@ -1,7 +1,5 @@
-import 'package:ecommerce_app/app/assets_path.dart';
+import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../widgets/app_logo_widget.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
       const Duration(seconds: 2),
     );
-    Navigator.pushReplacementNamed(context, '/email-verification');
+    Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
   }
 
   @override
