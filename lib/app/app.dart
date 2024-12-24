@@ -9,6 +9,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import '../features/auth/ui/screens/email_verification_screen.dart';
 import '../features/auth/ui/screens/otp_verification_screen.dart';
+import '../features/category/ui/screens/category_list_screen.dart';
+import '../features/product/ui/screens/product_list_screen.dart';
 
 class CraftyBay extends StatelessWidget{
   const CraftyBay({super.key});
@@ -25,6 +27,8 @@ class CraftyBay extends StatelessWidget{
         CompleteProfileScreen.name : (context) => const CompleteProfileScreen(),
         HomeScreen.name : (context) => const HomeScreen(),
         MainBottomNavScreen.name : (context) => const MainBottomNavScreen(),
+        CategoryListScreen.name : (context) => const CategoryListScreen(),
+        ProductListScreen.name : (context) => const ProductListScreen(),
       },
       theme: AppThemeData.lightThemeData,
       darkTheme: AppThemeData.darkThemeData,

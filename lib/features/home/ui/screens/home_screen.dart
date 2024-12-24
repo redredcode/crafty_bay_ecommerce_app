@@ -1,14 +1,15 @@
-import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/app/assets_path.dart';
+import 'package:ecommerce_app/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
-import '../../../common/ui/widgets/app_bar_icon_button.dart';
+import '../widgets/app_bar_icon_button.dart';
 import '../../../common/ui/widgets/category_item_widget.dart';
-import '../../../common/ui/widgets/home_carousel_slider.dart';
-import '../../../common/ui/widgets/home_section_header.dart';
+import '../widgets/home_carousel_slider.dart';
+import '../widgets/home_section_header.dart';
 import '../../../common/ui/widgets/product_item_widget.dart';
-import '../../../common/ui/widgets/product_search_bar.dart';
+import '../widgets/product_search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -67,7 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 8,
               ),
               HomeSectionHeader(
-                onTap: () {},
+                onTap: () {
+                  Get.find<MainBottomNavController>().moveToCategory();
+                },
                 title: 'All Categories',
               ),
               //const SizedBox(height: 4,),
@@ -87,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ..._getProductList()
                   ],
@@ -103,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ..._getProductList()
                   ],
                 ),
-              ),HomeSectionHeader(
+              ),
+              HomeSectionHeader(
                 onTap: () {},
                 title: 'New',
               ),
@@ -146,6 +151,5 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return productList;
   }
-
 }
 

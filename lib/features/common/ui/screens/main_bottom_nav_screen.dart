@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/app_colors.dart';
+import '../../../category/ui/screens/category_list_screen.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
   const MainBottomNavScreen({super.key});
@@ -17,7 +18,7 @@ class MainBottomNavScreen extends StatefulWidget {
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   final List<Widget> _screens = const [
     HomeScreen(),
-    HomeScreen(),
+    CategoryListScreen(),
     HomeScreen(),
     HomeScreen(),
   ];
