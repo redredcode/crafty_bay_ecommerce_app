@@ -35,7 +35,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
               const SizedBox(
                 height: 16,
               ),
-              Text('Welcome Back', style: Theme.of(context).textTheme.titleLarge),
+              Text('Welcome Back', style: Theme.of(context).textTheme.titleLarge,),
               //const SizedBox(height: 5),
               Text(
                 'Please enter your email',
@@ -44,30 +44,29 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                     ),
               ),
               const SizedBox(height: 24),
-              TextFormField(
-                keyboardType: TextInputType.emailAddress,
+              Form(
                 key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (String? value) {
-                  if (value?.trim().isEmpty ?? true) {
-                    return 'Enter your Email address';
-                  }
-                  if (EmailValidator.validate(value!) == false) {
-                    return 'Enter a valid email address';
-                  }
-                  return null;
-                },
-                controller: _emailTEController,
-                decoration: const InputDecoration(hintText: 'Email'),
+                child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (String? value) {
+                    if (value?.trim().isEmpty ?? true) {
+                      return 'Enter your Email address';
+                    }
+                    if (EmailValidator.validate(value!) == false) {
+                      return 'Enter a valid email address';
+                    }
+                    return null;
+                  },
+                  controller: _emailTEController,
+                  decoration: const InputDecoration(hintText: 'Email'),
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
               ElevatedButton(
-                onPressed: () {
-                  //if (_formKey.currentState!.validate()) {}
-                  Navigator.pushNamed(context, OtpVerificationScreen.name);
-                },
+                onPressed: _onTapNextButton,
                 child: const Text('Next'),
               ),
             ],
@@ -75,5 +74,11 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         ),
       ),
     );
+  }
+
+  void _onTapNextButton() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushNamed(context, OtpVerificationScreen.name);
+    }
   }
 }
