@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/app/app_constants.dart';
+import 'package:ecommerce_app/features/auth/ui/controllers/otp_verification_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
+import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce_app/features/common/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
@@ -10,9 +13,10 @@ import 'package:get/get.dart';
 import 'complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({super.key});
+  const OtpVerificationScreen({super.key, required this.email});
 
   static const String name = '/otp-verification';
+  final String email;
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -24,6 +28,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final RxInt _remainingCountdown = AppConstants.resendOtpTimeOutInSecs.obs;
   final RxBool _canResend = false.obs;
   late Timer _timer;
+  final OtpVerificationController _otpVerificationController = Get.find<OtpVerificationController>();
 
   void startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (t) {
@@ -98,16 +103,26 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   backgroundColor: Colors.transparent,
                   enableActiveFill: true,
                   appContext: context,
+                  validator: (String? value) {
+                    if (value?.length !=6) {
+                      return 'Enter your OTP';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    //if (_formKey.currentState!.validate()) {}
-                    Navigator.pushNamed(context, CompleteProfileScreen.name);
-                  },
-                  child: const Text('Next'),
+                GetBuilder<OtpVerificationController>(
+                  builder: (controller) {
+                    if (controller.inProgress) {
+                      return const CenteredCircularProgressIndicator();
+                    }
+                    return ElevatedButton(
+                      onPressed: _onTapNextButton,
+                      child: const Text('Next'),
+                    );
+                  }
                 ),
                 const SizedBox(
                   height: 24,
@@ -161,5 +176,21 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _onTapNextButton() async{
+    if (_formKey.currentState!.validate()) {
+      final bool response = await _otpVerificationController.verifyOtp(widget.email, _otpTEController.text);
+      if (response) {
+        if (mounted) {
+          Navigator.pushNamed(context, CompleteProfileScreen.name);
+        }
+      } else {
+        if (mounted) {
+          showSnackBarMessage(
+              context, _otpVerificationController.errorMessage!);
+        }
+      }
+    }
   }
 }
