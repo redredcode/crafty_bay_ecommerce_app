@@ -17,7 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(
       const Duration(seconds: 2),
     );
-    Navigator.pushReplacementNamed(context, EmailVerificationScreen.name);
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, EmailVerificationScreen.name);
+    }
   }
 
   @override

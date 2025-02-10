@@ -1,8 +1,9 @@
 import 'package:ecommerce_app/app/urls.dart';
+import 'package:ecommerce_app/features/auth/data/models/profile_model.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
-class EmailVerificationController extends GetxController {
+class ReadProfileController extends GetxController {
   bool _inProgress = false;
 
   bool get inProgress => _inProgress;
@@ -11,14 +12,23 @@ class EmailVerificationController extends GetxController {
 
   String? get errorMessage => _errorMessage;
 
-  Future<bool> verifyEmail(String email) async {
+  ProfileModel? _profileModel;
+
+  ProfileModel? get profileModel=> _profileModel;
+
+  Future<bool> readProfileData(String token) async {
     bool isSuccess = false;
     _inProgress = true;
     update();
     final NetworkResponse response = await Get.find<NetworkCaller>()
-        .getRequest(Urls.verifyEmailUrl);
+        .getRequest(Urls.readProfile, accessToken: token);
     if (response.isSuccess) {
       _errorMessage = null;
+      if (response.responseData['data'] == null) {
+        _profileModel = null;
+      } else {
+        _profileModel = ProfileModel.fromJson(response.responseData);
+      }
     } else {
       _errorMessage = response.errorMessage;
     }
