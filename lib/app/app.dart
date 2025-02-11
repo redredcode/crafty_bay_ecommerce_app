@@ -3,7 +3,6 @@ import 'package:ecommerce_app/app/controller_binder.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/complete_profile_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/screens/spalsh_screen.dart';
 import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
-import 'package:ecommerce_app/features/home/ui/screens/home_screen.dart';
 import 'package:ecommerce_app/features/product/ui/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
