@@ -12,10 +12,12 @@ class Urls {
   // category
 
   // product
+  ///static String productSearch = '$_baseUrl/product/search';
 
   // product review
 
   // Cart and wishlist
 
   // Slide
+  static String homeSliderUrl = '$_baseUrl/slides';
 }

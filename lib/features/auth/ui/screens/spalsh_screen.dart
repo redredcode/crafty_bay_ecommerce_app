@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
     );
     if (mounted) {
-      Navigator.pushReplacementNamed(context, EmailVerificationScreen.name);
+      Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
     }
   }
 

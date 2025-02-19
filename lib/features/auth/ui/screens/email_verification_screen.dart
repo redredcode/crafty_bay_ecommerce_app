@@ -14,7 +14,6 @@ class EmailVerificationScreen extends StatefulWidget {
 
   static const String name = '/email-verification';
 
-
   @override
   State<EmailVerificationScreen> createState() =>
       _EmailVerificationScreenState();
@@ -24,7 +23,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final EmailVerificationController _emailVerificationController = Get.find<EmailVerificationController>();
+  final EmailVerificationController _emailVerificationController =
+      Get.find<EmailVerificationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 const SizedBox(height: 80),
                 const AppLogoWidget(width: 90),
                 const SizedBox(height: 16),
-                Text('Welcome Back', style: Theme.of(context).textTheme.titleLarge,),
+                Text(
+                  'Welcome Back',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
                 //const SizedBox(height: 5),
                 Text(
                   'Please enter your email',
@@ -82,17 +85,15 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
                 const SizedBox(height: 16),
 
-                GetBuilder<EmailVerificationController>(
-                  builder: (controller) {
-                    if (controller.inProgress) {
-                      return const CenteredCircularProgressIndicator();
-                    }
-                    return ElevatedButton(
-                      onPressed: _onTapNextButton,
-                      child: const Text('Next'),
-                    );
+                GetBuilder<EmailVerificationController>(builder: (controller) {
+                  if (controller.inProgress) {
+                    return const CenteredCircularProgressIndicator();
                   }
-                ),
+                  return ElevatedButton(
+                    onPressed: _onTapNextButton,
+                    child: const Text('Next'),
+                  );
+                }),
               ],
             ),
           ),
@@ -100,57 +101,33 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       ),
     );
   }
-Future<void> _onTapNextButton() async {
-  if (_formKey.currentState!.validate()) {
-    bool isSuccess = await _emailVerificationController.verifyEmail(
-      _emailTEController.text.trim(),
-      _passwordTEController.text,
-    );
 
-    print('API call success: $isSuccess');
-    print('Widget mounted: $mounted');
+  Future<void> _onTapNextButton() async {
+    if (_formKey.currentState!.validate()) {
+      bool isSuccess = await _emailVerificationController.verifyEmail(
+        _emailTEController.text.trim(),
+        _passwordTEController.text,
+      );
 
-    if (isSuccess) {
-      if (mounted) {
-        Navigator.pushNamed(
-          context,
-          CompleteProfileScreen.name,
-          arguments: _emailTEController.text.trim(),
-        );
-      }
-    } else {
-      if (mounted) {
-        showSnackBarMessage(
-          context,
-          _emailVerificationController.errorMessage!,
-        );
+      print('API call success: $isSuccess');
+      print('Widget mounted: $mounted');
+
+      if (isSuccess) {
+        if (mounted) {
+          Navigator.pushNamed(
+            context,
+            CompleteProfileScreen.name,
+            arguments: _emailTEController.text.trim(),
+          );
+        }
+      } else {
+        if (mounted) {
+          showSnackBarMessage(
+            context,
+            _emailVerificationController.errorMessage!,
+          );
+        }
       }
     }
   }
-}
-  // Future<void> _onTapNextButton() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     bool isSuccess = await _emailVerificationController.verifyEmail(
-  //       _emailTEController.text.trim(),
-  //       _passwordTEController.text,
-  //
-  //     );
-  //     if (isSuccess) {
-  //       if (mounted) {
-  //         Navigator.pushNamed(
-  //           context,
-  //           MainBottomNavScreen.name,
-  //           arguments: _emailTEController.text.trim(),
-  //         );
-  //       }
-  //     } else {
-  //       if (mounted) {
-  //         showSnackBarMessage(
-  //           context,
-  //           _emailVerificationController.errorMessage!,
-  //         );
-  //       }
-  //     }
-  //   }
-  // }
 }

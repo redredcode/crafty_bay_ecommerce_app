@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce_app/features/home/data/models/slider_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../app/app_colors.dart';
@@ -6,7 +7,10 @@ import '../../../../app/app_colors.dart';
 class HomeCarouselSlider extends StatefulWidget {
   const HomeCarouselSlider({
     super.key,
+    required this.sliderList,
   });
+
+  final List<SliderModel> sliderList;
 
   @override
   State<HomeCarouselSlider> createState() => _HomeCarouselSliderState();
@@ -26,8 +30,8 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
               onPageChanged: (currentIndex, reason) {
                 _selectedIndex.value = currentIndex;
               }),
-          items: [1, 2, 3, 4, 5].map(
-            (i) {
+          items: widget.sliderList.map(
+            (banner) {
               return Builder(
                 builder: (BuildContext context) {
                   return Container(
@@ -36,15 +40,33 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
                     decoration: BoxDecoration(
                       color: AppColors.themeColor,
                       borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(banner.photoUrl ?? ''),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'text $i',
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          banner.description ?? '',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 90,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Buy Now'),
+                          ),
+                        ),
+                      ],
                     ),
                   );
                 },
@@ -52,16 +74,14 @@ class _HomeCarouselSliderState extends State<HomeCarouselSlider> {
             },
           ).toList(),
         ),
-        const SizedBox(
-          height: 8,
-        ),
+        const SizedBox(height: 8),
         ValueListenableBuilder(
           valueListenable: _selectedIndex,
           builder: (context, value, _) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < widget.sliderList.length; i++)
                   Container(
                     width: 12,
                     height: 12,

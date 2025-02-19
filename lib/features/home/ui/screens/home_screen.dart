@@ -1,9 +1,11 @@
 import 'package:ecommerce_app/app/assets_path.dart';
 import 'package:ecommerce_app/features/common/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../controllers/slider_list_controller.dart';
 import '../widgets/app_bar_icon_button.dart';
 import '../../../common/ui/widgets/category_item_widget.dart';
 import '../widgets/home_carousel_slider.dart';
@@ -24,6 +26,16 @@ final TextEditingController _searchBarTextEditingController =
     TextEditingController();
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _searchBarTextEditingController =
+      TextEditingController();
+  final SliderListController _sliderListController = Get.find<SliderListController>();
+
+  @override
+  void initState() {
+    super.initState();
+    _sliderListController.getSliders();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +75,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _searchBarTextEditingController,
               ),
               const SizedBox(height: 8),
-              const HomeCarouselSlider(),
+
+              GetBuilder<SliderListController>(
+                builder: (controller) {
+                  if (controller.inProgress) {
+                    return const Center(
+                      child: SizedBox(
+                        height: 180,
+                          child: CenteredCircularProgressIndicator()),
+                    );
+                  }
+                  return HomeCarouselSlider(sliderList: controller.sliderBannerList);
+                }
+              ),
               const SizedBox(
                 height: 8,
               ),
