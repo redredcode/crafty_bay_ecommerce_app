@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/app/app_constants.dart';
 import 'package:ecommerce_app/features/auth/ui/controllers/otp_verification_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/controllers/read_profile_controller.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
+import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/material.dart';
@@ -182,8 +184,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     if (_formKey.currentState!.validate()) {
       final bool response = await _otpVerificationController.verifyOtp(widget.email, _otpTEController.text);
       if (response) {
-        if (mounted) {
-          Navigator.pushNamed(context, CompleteProfileScreen.name);
+        if (_otpVerificationController.shouldNavigateToCompleteProfile) {
+          if (mounted) {
+            Navigator.pushNamed(context, CompleteProfileScreen.name);
+          }
+        } else {
+          if (mounted) {
+            Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate) => false);
+          }
         }
       } else {
         if (mounted) {

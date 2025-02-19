@@ -45,7 +45,7 @@ class ProfileModel {
         this.user});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id']; // storing the id from the json data into id
     cusName = json['cus_name'];
     cusAdd = json['cus_add'];
     cusCity = json['cus_city'];
@@ -94,3 +94,72 @@ class ProfileModel {
     return data;
   }
 }
+
+
+
+// the data below is extracted from the latest api 👇
+
+// class ProfileModel {
+//   String? sId;
+//   String? firstName;
+//   String? lastName;
+//   String? email;
+//   bool? emailVerified;
+//   String? phone;
+//   bool? phoneVerified;
+//   String? avatarUrl;
+//   String? city;
+//   int? role;
+//   String? createdAt;
+//   String? updatedAt;
+//   int? iV;
+//
+//   ProfileModel(
+//       {this.sId,
+//         this.firstName,
+//         this.lastName,
+//         this.email,
+//         this.emailVerified,
+//         this.phone,
+//         this.phoneVerified,
+//         this.avatarUrl,
+//         this.city,
+//         this.role,
+//         this.createdAt,
+//         this.updatedAt,
+//         this.iV});
+//
+//   ProfileModel.fromJson(Map<String, dynamic> json) {
+//     sId = json['_id'];
+//     firstName = json['first_name'];
+//     lastName = json['last_name'];
+//     email = json['email'];
+//     emailVerified = json['email_verified'];
+//     phone = json['phone'];
+//     phoneVerified = json['phone_verified'];
+//     avatarUrl = json['avatar_url'];
+//     city = json['city'];
+//     role = json['role'];
+//     createdAt = json['createdAt'];
+//     updatedAt = json['updatedAt'];
+//     iV = json['__v'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['_id'] = this.sId;
+//     data['first_name'] = this.firstName;
+//     data['last_name'] = this.lastName;
+//     data['email'] = this.email;
+//     data['email_verified'] = this.emailVerified;
+//     data['phone'] = this.phone;
+//     data['phone_verified'] = this.phoneVerified;
+//     data['avatar_url'] = this.avatarUrl;
+//     data['city'] = this.city;
+//     data['role'] = this.role;
+//     data['createdAt'] = this.createdAt;
+//     data['updatedAt'] = this.updatedAt;
+//     data['__v'] = this.iV;
+//     return data;
+//   }
+// }

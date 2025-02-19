@@ -27,7 +27,7 @@ class ReadProfileController extends GetxController {
       if (response.responseData['data'] == null) {
         _profileModel = null;
       } else {
-        _profileModel = ProfileModel.fromJson(response.responseData);
+        _profileModel = ProfileModel.fromJson(response.responseData['data']);
       }
     } else {
       _errorMessage = response.errorMessage;

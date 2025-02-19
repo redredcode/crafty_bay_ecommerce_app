@@ -22,8 +22,8 @@ class UserModel {
         this.photo,
         this.createdDate});
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
+   UserModel.fromJson(Map<String, dynamic> json) {
+    sId = json['_id']; // storing the id from the json data into sId
     email = json['email'];
     firstName = json['firstName'];
     lastName = json['lastName'];
