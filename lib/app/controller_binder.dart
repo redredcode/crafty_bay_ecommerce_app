@@ -7,6 +7,7 @@ import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
 import '../features/auth/ui/controllers/read_profile_controller.dart';
+import '../features/common/ui/controllers/category_list_controller.dart';
 
 class ControllerBinder extends Bindings {
   @override
@@ -18,5 +19,6 @@ class ControllerBinder extends Bindings {
     Get.put(AuthController());
     Get.put(OtpVerificationController());
     Get.put(SliderListController());
+    Get.put(CategoryListController());
   }
 }

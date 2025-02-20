@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/features/home/data/models/slider_model.dart';
 
 class SliderListDataModel {
-  List<SliderModel>? results;
+  List<CategoryModel>? results;
   int? total;
   Null? firstPage;
   Null? previous;
@@ -18,9 +18,9 @@ class SliderListDataModel {
 
   SliderListDataModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
-      results = <SliderModel>[];
+      results = <CategoryModel>[];
       json['results'].forEach((v) {
-        results!.add(SliderModel.fromJson(v));
+        results!.add(CategoryModel.fromJson(v));
       });
     }
     total = json['total'];

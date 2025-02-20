@@ -10,6 +10,9 @@ class Urls {
   // brand
 
   // category
+  static String categoryListUrl = '$_baseUrl/categories'; // get category list
+  static String createCategoryUrl = '$_baseUrl/category'; // create category (admin)
+  //static String categoryListUrl = '$_baseUrl/categories'; // get category list
 
   // product
   ///static String productSearch = '$_baseUrl/product/search';

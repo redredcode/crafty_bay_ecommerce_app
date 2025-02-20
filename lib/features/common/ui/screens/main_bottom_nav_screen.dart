@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 
 import '../../../../app/app_colors.dart';
 import '../../../category/ui/screens/category_list_screen.dart';
+import '../../../home/ui/controllers/slider_list_controller.dart';
+import '../controllers/category_list_controller.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
   const MainBottomNavScreen({super.key});
@@ -16,12 +18,23 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
+  final SliderListController _sliderListController = Get.find<SliderListController>();
+
+
   final List<Widget> _screens = const [
     HomeScreen(),
     CategoryListScreen(),
     HomeScreen(),
     HomeScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _sliderListController.getSliders();
+    Get.find<CategoryListController>().getCategoryList();
+  }
+
 
   final List<IconData> filledIcons = [
     Icons.home,

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../app/urls.dart';
 
-class SliderListController extends GetxController {
+class CategoryListController extends GetxController {
   bool _inProgress = false;
 
   bool get inProgress => _inProgress;
@@ -14,12 +14,12 @@ class SliderListController extends GetxController {
 
   String? get errorMessage => _errorMessage;
 
-  CategoryListModel? _sliderPaginationModel;
+  CategoryListModel? _categoryListModel;
 
-  List<CategoryModel> get sliderBannerList =>
-      _sliderPaginationModel?.data?.results ?? [];
+  List<CategoryModel> get categoryList =>
+      _categoryListModel?.data?.results ?? [];
 
-  Future<bool> getSliders() async {
+  Future<bool> getCategoryList() async {
     bool isSuccess = false;
     _inProgress = true;
     update();
@@ -27,7 +27,7 @@ class SliderListController extends GetxController {
     final NetworkResponse response =
         await Get.find<NetworkCaller>().getRequest(Urls.homeSliderUrl);
     if (response.isSuccess) {
-      _sliderPaginationModel =
+      _categoryListModel =
           CategoryListModel.fromJson(response.responseData);
       isSuccess = true;
     } else {
