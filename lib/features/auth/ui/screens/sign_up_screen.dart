@@ -1,11 +1,14 @@
-import 'package:ecommerce_app/features/auth/ui/controllers/sign_in_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/complete_profile_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/controllers/sign_up_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/otp_verification_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_in_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/snack_bar_message.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../data/models/sign_up_params.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -25,8 +28,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _phoneNoTEController = TextEditingController();
   final TextEditingController _cityTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final SignInController _signInController =
-      Get.find<SignInController>();
+  final SignUpController _signUpController =
+      Get.find<SignUpController>();
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +117,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (value?.trim().isEmpty ?? true) {
                       return 'Enter your Valid Phone Number';
                     }
+                    if (RegExp(r'^(?:\+88|88)?01[3-9]\d{8}$').hasMatch(value!) == false) {
+                      return '*Enter a valid mobile no.';
+                    }
                     return null;
                   },
                   controller: _phoneNoTEController,
@@ -140,11 +146,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 // password text field
                 TextFormField(
+                  textInputAction: TextInputAction.go,
                   obscureText: true,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (String? value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Enter your password';
+                    if ((value?.isEmpty ?? true) || value!.length < 6) {
+                      return 'Password should be at-least 6 characters long';
                     }
                     return null;
                   },
@@ -154,13 +161,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 const SizedBox(height: 16),
 
-                GetBuilder<SignInController>(builder: (controller) {
+                GetBuilder<SignUpController>(builder: (controller) {
                   if (controller.inProgress) {
                     return const CenteredCircularProgressIndicator();
                   }
                   return ElevatedButton(
-                    onPressed: _onTapNextButton,
-                    child: const Text('Next'),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _onTapSignUp();
+                      }
+                    },
+                    child: const Text('Sign Up'),
                   );
                 }),
               ],
@@ -171,21 +182,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Future<void> _onTapNextButton() async {
+  Future<void> _onTapSignUp() async {
     if (_formKey.currentState!.validate()) {
-      bool isSuccess = await _signInController.signIn(
-        _emailTEController.text.trim(),
-        _passwordTEController.text,
+      bool isSuccess = await _signUpController.signUp(
+        SignUpParams(
+          firstName: _firstNameTEController.text.trim(),
+          lastName: _lastNameTEController.text.trim(),
+          email: _emailTEController.text.trim(),
+          password: _passwordTEController.text,
+          phoneNumber: _phoneNoTEController.text.trim(),
+          city: _cityTEController.text.trim(),
+        ),
       );
 
       print('API call success: $isSuccess');
       print('Widget mounted: $mounted');
+      //isSuccess = true;
 
       if (isSuccess) {
         if (mounted) {
           Navigator.pushNamed(
             context,
-            CompleteProfileScreen.name,
+            OtpVerificationScreen.name,
             arguments: _emailTEController.text.trim(),
           );
         }
@@ -193,7 +211,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         if (mounted) {
           showSnackBarMessage(
             context,
-            _signInController.errorMessage!,
+            _signUpController.errorMessage!,
           );
         }
       }

@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/features/auth/ui/controllers/sign_in_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/complete_profile_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';

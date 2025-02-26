@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:ecommerce_app/features/common/data/models/error_response_model.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 
@@ -34,17 +35,20 @@ class NetworkCaller {
       _logRequest(url);
     Response response = await get(uri, headers: headers);
     _logResponse(url, response.statusCode, response.headers, response.body);
-      if (response.statusCode == 200) {
-        final decodedData = jsonDecode(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final decodedMessage = jsonDecode(response.body);
         return NetworkResponse(
           isSuccess: true,
           statusCode: response.statusCode,
-          responseData: decodedData,
+          responseData: decodedMessage,
         );
       } else {
+        final decodedMessage = jsonDecode(response.body);
+        ErrorResponseModel errorResponseModel = ErrorResponseModel.fromJson(decodedMessage);
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
+          errorMessage: errorResponseModel.msg,
         );
       }
     } catch (e) {
@@ -60,14 +64,15 @@ class NetworkCaller {
   Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body}) async {
     try {
       Uri uri = Uri.parse(url);
+
       Map<String, String> headers = {
-        'content-type' : 'application/json'
+        "content-type" : "application/json"
       };
       //_logger.i('URL => $url');
-      _logRequest(url);
+      _logRequest(url, headers, body);
     Response response = await post(uri, headers: headers, body: jsonEncode(body),);
     _logResponse(url, response.statusCode, response.headers, response.body);
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final decodedData = jsonDecode(response.body);
         return NetworkResponse(
           isSuccess: true,

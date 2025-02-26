@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/app/app_constants.dart';
 import 'package:ecommerce_app/features/auth/ui/controllers/otp_verification_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/controllers/read_profile_controller.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
 
-import 'complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key, required this.email});
@@ -85,8 +84,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ),
                 const SizedBox(height: 24),
                 PinCodeTextField(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   controller: _otpTEController,
-                  length: 6,
+                  length: 4,
                   obscureText: false,
                   animationType: AnimationType.fade,
                   keyboardType: TextInputType.number,
@@ -186,7 +186,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       if (response) {
         if (_otpVerificationController.shouldNavigateToCompleteProfile) {
           if (mounted) {
-            Navigator.pushNamed(context, CompleteProfileScreen.name);
+            Navigator.pushNamed(context, SignUpScreen.name);
           }
         } else {
           if (mounted) {

@@ -19,9 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
     );
     if (mounted) {
-      //Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
-      //Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
       Navigator.pushReplacementNamed(context, SignUpScreen.name);
+      //Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
     }
   }
 
