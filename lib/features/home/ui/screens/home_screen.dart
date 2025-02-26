@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
       categoryList.add(
         Padding(
           padding: const EdgeInsets.only(right: 20),
-          child: CategoryItemWidget(categoryModel: categoryModels[i],),
+          //child: CategoryItemWidget(categoryModel: categoryModels[i],),
         ),
       );
     }

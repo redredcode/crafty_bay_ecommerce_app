@@ -1,4 +1,5 @@
-import 'package:ecommerce_app/features/auth/ui/screens/email_verification_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_in_screen.dart';
+import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:flutter/material.dart';
 import '../widgets/app_logo_widget.dart';
@@ -18,7 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 2),
     );
     if (mounted) {
-      Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+      //Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+      //Navigator.pushReplacementNamed(context, MainBottomNavScreen.name);
+      Navigator.pushReplacementNamed(context, SignUpScreen.name);
     }
   }
 

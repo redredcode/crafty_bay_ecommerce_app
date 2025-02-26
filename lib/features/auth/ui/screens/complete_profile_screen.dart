@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import 'otp_verification_screen.dart';
