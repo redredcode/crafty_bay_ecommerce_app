@@ -5,8 +5,6 @@ import 'package:ecommerce_app/features/common/ui/controllers/main_bottom_nav_con
 import 'package:ecommerce_app/features/home/ui/controllers/slider_list_controller.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
-
-import '../features/auth/ui/controllers/read_profile_controller.dart';
 import '../features/auth/ui/controllers/sign_up_controller.dart';
 import '../features/common/ui/controllers/category_list_controller.dart';
 
@@ -17,7 +15,6 @@ class ControllerBinder extends Bindings {
     Get.put(NetworkCaller());
     Get.put(SignInController());
     Get.put(SignUpController());
-    Get.put(ReadProfileController());
     Get.put(AuthController());
     Get.put(OtpVerificationController());
     Get.put(SliderListController());

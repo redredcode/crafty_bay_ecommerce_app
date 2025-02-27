@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/app/urls.dart';
-import 'package:ecommerce_app/features/auth/data/models/sign_in_model.dart';
+import 'package:ecommerce_app/features/auth/data/models/auth_success_model.dart';
 import 'package:ecommerce_app/features/auth/data/models/sign_up_params.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';

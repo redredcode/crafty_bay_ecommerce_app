@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:ecommerce_app/features/auth/data/models/profile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../auth/data/models/sign_in_model.dart';
+import '../../../auth/data/models/auth_success_model.dart';
 
 class AuthController {
   final String _accessTokenKey = 'access_token';

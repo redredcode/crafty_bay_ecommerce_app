@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/app/app_constants.dart';
 import 'package:ecommerce_app/features/auth/ui/controllers/otp_verification_controller.dart';
-import 'package:ecommerce_app/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:ecommerce_app/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
@@ -106,7 +104,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   enableActiveFill: true,
                   appContext: context,
                   validator: (String? value) {
-                    if (value?.length !=6) {
+                    if (value?.length !=4) {
                       return 'Enter your OTP';
                     }
                     return null;
@@ -184,14 +182,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     if (_formKey.currentState!.validate()) {
       final bool response = await _otpVerificationController.verifyOtp(widget.email, _otpTEController.text);
       if (response) {
-        if (_otpVerificationController.shouldNavigateToCompleteProfile) {
-          if (mounted) {
-            Navigator.pushNamed(context, SignUpScreen.name);
-          }
-        } else {
           if (mounted) {
             Navigator.pushNamedAndRemoveUntil(context, MainBottomNavScreen.name, (predicate) => false);
-          }
         }
       } else {
         if (mounted) {

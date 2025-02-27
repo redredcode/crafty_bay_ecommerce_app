@@ -1,8 +1,9 @@
 import 'package:ecommerce_app/app/urls.dart';
-import 'package:ecommerce_app/features/auth/ui/controllers/read_profile_controller.dart';
 import 'package:ecommerce_app/features/common/ui/controllers/auth_controller.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
+
+import '../../data/models/auth_success_model.dart';
 
 class OtpVerificationController extends GetxController {
   bool _inProgress = false;
@@ -13,31 +14,21 @@ class OtpVerificationController extends GetxController {
 
   String? get errorMessage => _errorMessage;
 
-  bool _shouldNavigateToCompleteProfile = false;
-
-  bool get shouldNavigateToCompleteProfile => _shouldNavigateToCompleteProfile;
-
-  String? _token;
-  String? get token => _token;
-
   Future<bool> verifyOtp(String email, String otp) async {
     bool isSuccess = false;
     _inProgress = true;
     update();
+    final Map<String, dynamic> requestParams = {
+      "email": email,
+      "otp": otp,
+    };
     final NetworkResponse response = await Get.find<NetworkCaller>()
-        .getRequest(Urls.verifyOtpUrl);
+        .postRequest(Urls.verifyOtpUrl, body: requestParams);
     if (response.isSuccess) {
+      AuthSuccessModel authSuccessModel = AuthSuccessModel.fromJson(response.responseData);
+      await Get.find<AuthController>().saveUserDataAndAccessToken(authSuccessModel.data!.token!, authSuccessModel.data!.user!);
       _errorMessage = null;
       isSuccess = true;
-      String token = response.responseData['data'];
-      await Get.find<ReadProfileController>().readProfileData(token);
-      if (Get.find<ReadProfileController>().profileModel == null) {
-        _shouldNavigateToCompleteProfile = true;
-      } else {
-        // Save profile data and access token
-        //await Get.find<AuthController>().saveUserDataAndAccessToken(token, Get.find<ReadProfileController>().profileModel!);
-        _shouldNavigateToCompleteProfile = false;
-      }
     } else {
       _errorMessage = response.errorMessage;
     }
