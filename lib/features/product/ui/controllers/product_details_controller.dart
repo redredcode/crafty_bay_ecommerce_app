@@ -1,11 +1,11 @@
 import 'package:ecommerce_app/features/home/data/models/slider_model.dart';
+import 'package:ecommerce_app/features/product/data/models/product_details_model.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/urls.dart';
-import '../../data/models/slider_pagination_model.dart';
 
-class SliderListController extends GetxController {
+class ProductDetailsController extends GetxController {
   bool _inProgress = false;
 
   bool get inProgress => _inProgress;
@@ -14,21 +14,20 @@ class SliderListController extends GetxController {
 
   String? get errorMessage => _errorMessage;
 
-  SliderPaginationModel? _sliderPaginationModel; // we created this SliderListDataModel instance to use the .fromJason method from it (used in line 31)
+  ProductDetails _productDetails = ProductDetails();
 
-  List<SliderModel> get sliderBannerList =>
-      _sliderPaginationModel?.data?.results ?? <SliderModel>[];
+  ProductDetails get productDetails => _productDetails;
 
-  Future<bool> getSliders() async {
+  Future<bool> getProductDetails(int productID) async {
     bool isSuccess = false;
     _inProgress = true;
     update();
 
-    final NetworkResponse response =
-        await Get.find<NetworkCaller>().getRequest(Urls.homeSliderUrl);
+    final NetworkResponse response = await Get.find<NetworkCaller>().getRequest(
+      Urls.productDetailsUrl(productID),
+    );
     if (response.isSuccess) {
-      _sliderPaginationModel =
-          SliderPaginationModel.fromJson(response.responseData);
+      _productDetails = ProductDetails.fromJson(response.responseData);
       isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;

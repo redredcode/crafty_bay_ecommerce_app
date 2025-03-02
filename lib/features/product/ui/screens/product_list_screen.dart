@@ -2,10 +2,15 @@ import 'package:ecommerce_app/features/common/ui/widgets/product_item_widget.dar
 import 'package:flutter/material.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key, required this.categoryName});
+  const ProductListScreen({
+    super.key,
+    required this.categoryName,
+    required this.categoryID,
+  });
 
   static const String name = '/product/product-list-by-category';
   final String categoryName;
+  final int categoryID;
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();

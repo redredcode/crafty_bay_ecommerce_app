@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import '../../../../app/app_colors.dart';
 
 class ProductImageCarouselSlider extends StatefulWidget {
+  final List<String>? imageList;
+
   const ProductImageCarouselSlider({
-    super.key,
+    super.key, this.imageList,
   });
 
   @override
@@ -40,8 +42,8 @@ class _HomeCarouselSliderState extends State<ProductImageCarouselSlider> {
           onPageChanged: (currentIndex, reason) {
             _selectedIndex.value = currentIndex;
           }),
-      items: [1, 2, 3, 4, 5].map(
-            (i) {
+      items: widget.imageList?.map(
+            (imageURL) {
           return Builder(
             builder: (BuildContext context) {
               return Container(
@@ -52,14 +54,6 @@ class _HomeCarouselSliderState extends State<ProductImageCarouselSlider> {
                   //borderRadius: BorderRadius.circular(8),
                 ),
                 alignment: Alignment.center,
-                child: Text(
-                  'text $i',
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               );
             },
           );

@@ -1,4 +1,4 @@
-import 'category_model.dart';
+// not in use
 
 class CategoryListModel { // renamed CategoryModel to CategoryListModel
   int? code;
@@ -29,7 +29,7 @@ class CategoryListModel { // renamed CategoryModel to CategoryListModel
 
 
 
-class Results {
+class Results { // categories
   String? sId;
   String? title;
   String? slug;

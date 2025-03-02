@@ -15,6 +15,7 @@ class Urls {
   //static String categoryListUrl = '$_baseUrl/categories'; // get category list
 
   // product
+  static String productDetailsUrl(int productId) => '$_baseUrl/products/id/:$productId'; // get product list
   ///static String productSearch = '$_baseUrl/product/search';
 
   // product review
