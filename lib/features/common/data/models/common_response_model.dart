@@ -1,14 +1,14 @@
 import 'package:ecommerce_app/features/home/data/models/slider_list_data_model.dart';
 
-class SliderPaginationModel {
+class PaginationCommonResponseModel {
   int? code;
   String? status;
   String? msg;
   PaginationModel? data;
 
-  SliderPaginationModel({this.code, this.status, this.msg, this.data});
+  PaginationCommonResponseModel({this.code, this.status, this.msg, this.data});
 
-  SliderPaginationModel.fromJson(Map<String, dynamic> json) {
+  PaginationCommonResponseModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
     msg = json['msg'];

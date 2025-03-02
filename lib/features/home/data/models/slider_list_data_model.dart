@@ -1,14 +1,14 @@
 import 'package:ecommerce_app/features/home/data/models/slider_model.dart';
 
-class SliderListDataModel {
-  List<CategoryModel>? results;
+class PaginationModel {
+  List<SliderModel>? results;
   int? total;
-  Null? firstPage;
-  Null? previous;
+  int? firstPage;
+  int? previous;
   int? next;
   int? lastPage;
 
-  SliderListDataModel(
+  PaginationModel(
       {this.results,
         this.total,
         this.firstPage,
@@ -16,11 +16,11 @@ class SliderListDataModel {
         this.next,
         this.lastPage});
 
-  SliderListDataModel.fromJson(Map<String, dynamic> json) {
+  PaginationModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
-      results = <CategoryModel>[];
+      results = <SliderModel>[];
       json['results'].forEach((v) {
-        results!.add(CategoryModel.fromJson(v));
+        results!.add(SliderModel.fromJson(v));
       });
     }
     total = json['total'];
@@ -43,5 +43,3 @@ class SliderListDataModel {
     return data;
   }
 }
-
-

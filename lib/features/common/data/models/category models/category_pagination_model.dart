@@ -14,25 +14,14 @@ class CategoryPaginationModel {
     msg = json['msg'];
     data = json['data'] != null ? PaginationData.fromJson(json['data']) : null;
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['code'] = code;
-    data['status'] = status;
-    data['msg'] = msg;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
 }
 
 class PaginationData {
   // we could have also name this class as CategoryListDataModel just like SliderListDataModel
   List<CategoryItemModel>? results;
   int? total;
-  Null? firstPage;
-  Null? previous;
+  int? firstPage;
+  int? previous;
   int? next;
   int? lastPage;
 
@@ -48,7 +37,7 @@ class PaginationData {
     if (json['results'] != null) {
       results = <CategoryItemModel>[];
       json['results'].forEach((v) {
-        results!.add(new CategoryItemModel.fromJson(v));
+        results!.add(CategoryItemModel.fromJson(v));
       });
     }
     total = json['total'];
@@ -56,19 +45,6 @@ class PaginationData {
     previous = json['previous'];
     next = json['next'];
     lastPage = json['last_page'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (results != null) {
-      data['results'] = results!.map((v) => v.toJson()).toList();
-    }
-    data['total'] = total;
-    data['first_page'] = firstPage;
-    data['previous'] = previous;
-    data['next'] = next;
-    data['last_page'] = lastPage;
-    return data;
   }
 }
 
@@ -105,19 +81,5 @@ class CategoryItemModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['title'] = title;
-    data['slug'] = slug;
-    data['description'] = description;
-    data['icon'] = icon;
-    data['parent'] = parent;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
-    return data;
   }
 }

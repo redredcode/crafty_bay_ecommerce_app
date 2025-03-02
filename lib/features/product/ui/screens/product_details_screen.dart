@@ -2,7 +2,7 @@ import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:ecommerce_app/features/product/ui/widgets/color_picker_widget.dart';
 import 'package:ecommerce_app/features/product/ui/widgets/product_image_carousel_slider.dart';
 import 'package:ecommerce_app/features/product/ui/widgets/size_picker_widget.dart';
-import 'package:ecommerce_app/features/reviews/reviews_screen.dart';
+import 'package:ecommerce_app/features/reviews/ui/screens/reviews_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/cart_product_qty_inc_dec_button.dart';

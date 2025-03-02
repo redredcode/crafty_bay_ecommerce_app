@@ -22,15 +22,24 @@ class NetworkCaller {
   // using the logger package
   final Logger _logger = Logger();
 
-  Future<NetworkResponse> getRequest(String url, {String? accessToken}) async {
+  Future<NetworkResponse> getRequest(String url,  {Map<String, dynamic>? queryParams, String? accessToken}) async {
     try {
-      Uri uri = Uri.parse(url);
+
       Map<String, String> headers = {
         'content-type' : 'application/json'
       };
       if (accessToken != null) {
         headers['token'] = accessToken;
       }
+
+      if (queryParams != null) {
+        url += '?';
+        for (String param in queryParams.keys) {
+          url += '$param=${queryParams[param]}&';
+        }
+      }
+
+      Uri uri = Uri.parse(url);
       //_logger.i('URL => $url');
       _logRequest(url);
     Response response = await get(uri, headers: headers);

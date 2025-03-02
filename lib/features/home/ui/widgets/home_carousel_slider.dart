@@ -10,7 +10,7 @@ class HomeCarouselSlider extends StatefulWidget {
     required this.sliderList,
   });
 
-  final List<CategoryModel> sliderList;
+  final List<SliderModel> sliderList;
 
   @override
   State<HomeCarouselSlider> createState() => _HomeCarouselSliderState();

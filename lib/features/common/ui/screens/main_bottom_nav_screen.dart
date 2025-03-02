@@ -18,8 +18,6 @@ class MainBottomNavScreen extends StatefulWidget {
 }
 
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
-  final SliderListController _sliderListController = Get.find<SliderListController>();
-
 
   final List<Widget> _screens = const [
     HomeScreen(),
@@ -31,7 +29,7 @@ class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   @override
   void initState() {
     super.initState();
-    _sliderListController.getSliders();
+    Get.find<SliderListController>().getSliders();
     Get.find<CategoryListController>().getCategoryList();
   }
 

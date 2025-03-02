@@ -1,5 +1,5 @@
+import 'package:ecommerce_app/features/home/data/models/slider_list_data_model.dart';
 import 'package:ecommerce_app/features/home/data/models/slider_model.dart';
-import 'package:ecommerce_app/features/home/data/models/slider_pagination_model.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +14,10 @@ class SliderListController extends GetxController {
 
   String? get errorMessage => _errorMessage;
 
-  CategoryListModel? _sliderPaginationModel;
+  PaginationModel? _sliderListDataModel; // we created this SliderListDataModel instance to use the .fromJason method from it (used in line 31)
 
-  List<CategoryModel> get sliderBannerList =>
-      _sliderPaginationModel?.data?.results ?? [];
+  List<SliderModel> get sliderBannerList =>
+      _sliderListDataModel?.results ?? <SliderModel>[];
 
   Future<bool> getSliders() async {
     bool isSuccess = false;
@@ -27,8 +27,8 @@ class SliderListController extends GetxController {
     final NetworkResponse response =
         await Get.find<NetworkCaller>().getRequest(Urls.homeSliderUrl);
     if (response.isSuccess) {
-      _sliderPaginationModel =
-          CategoryListModel.fromJson(response.responseData);
+      _sliderListDataModel =
+          PaginationModel.fromJson(response.responseData);
       isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;

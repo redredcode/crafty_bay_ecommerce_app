@@ -1,4 +1,4 @@
-class CategoryModel {
+class SliderModel {
   String? sId;
   String? photoUrl;
   String? description;
@@ -9,7 +9,7 @@ class CategoryModel {
   String? updatedAt;
   int? iV;
 
-  CategoryModel(
+  SliderModel(
       {this.sId,
         this.photoUrl,
         this.description,
@@ -20,7 +20,7 @@ class CategoryModel {
         this.updatedAt,
         this.iV});
 
-  CategoryModel.fromJson(Map<String, dynamic> json) {
+  SliderModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     photoUrl = json['photo_url'];
     description = json['description'];
