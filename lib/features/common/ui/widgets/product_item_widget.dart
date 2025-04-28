@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../app/app_colors.dart';
 import '../../../../app/assets_path.dart';
+import '../../../product/data/models/product_list_pagination_model.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({
-    super.key,
+    super.key, required this.productModel,
   });
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class ProductItemWidget extends StatelessWidget {
                 ),
                 padding: const EdgeInsets.all(16),
                 child: Image.asset(
-                  AssetsPath.sneakerDemo,
+                  AssetsPath.sneakerDemo, /// todo: use the image from api... find a way to use list of photos here...
                   width: 170,
                   height: 100,
                 ),
@@ -40,10 +43,10 @@ class ProductItemWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    const Text(
-                      'Nike Shoe Latest Edition- RF3J',
+                    Text(
+                      productModel.title ?? '',
                       maxLines: 1,
-                      style: TextStyle(
+                      style: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         color: Colors.black54,
                         fontWeight: FontWeight.w400,
@@ -53,9 +56,9 @@ class ProductItemWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text(
-                          '\$100',
-                          style: TextStyle(
+                        Text(
+                          '\$${productModel.currentPrice ?? ''}',
+                          style: const TextStyle(
                             color: AppColors.themeColor,
                             fontWeight: FontWeight.w500,
                           ),

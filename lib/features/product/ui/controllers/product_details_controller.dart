@@ -1,9 +1,8 @@
-import 'package:ecommerce_app/features/home/data/models/slider_model.dart';
-import 'package:ecommerce_app/features/product/data/models/product_details_model.dart';
 import 'package:ecommerce_app/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/urls.dart';
+import '../../data/models/product_list_pagination_model.dart';
 
 class ProductDetailsController extends GetxController {
   bool _inProgress = false;
@@ -14,9 +13,9 @@ class ProductDetailsController extends GetxController {
 
   String? get errorMessage => _errorMessage;
 
-  ProductDetails _productDetails = ProductDetails();
+  ProductModel _productModel = ProductModel();
 
-  ProductDetails get productDetails => _productDetails;
+  ProductModel get productModel => _productModel;
 
   Future<bool> getProductDetails(int productID) async {
     bool isSuccess = false;
@@ -27,7 +26,7 @@ class ProductDetailsController extends GetxController {
       Urls.productDetailsUrl(productID),
     );
     if (response.isSuccess) {
-      _productDetails = ProductDetails.fromJson(response.responseData);
+      _productModel = ProductModel.fromJson(response.responseData);
       isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;

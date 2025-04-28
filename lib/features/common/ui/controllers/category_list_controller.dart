@@ -18,8 +18,7 @@ class CategoryListController extends GetxController {
 
   final List<CategoryItemModel> _categoryList = [];
 
-  List<CategoryItemModel> get categoryList =>
-      _categoryList;
+  List<CategoryItemModel> get categoryList => _categoryList;
 
   final int _count = 30;
 
@@ -48,8 +47,7 @@ class CategoryListController extends GetxController {
     if (response.isSuccess) {
       // _categoryPaginationModel =
       //     CategoryPaginationModel.fromJson(response.responseData);
-      CategoryPaginationModel paginationModel =
-      CategoryPaginationModel.fromJson(response.responseData);
+      CategoryPaginationModel paginationModel = CategoryPaginationModel.fromJson(response.responseData);
       _categoryList.addAll(paginationModel.data?.results ?? []);
 
       if (paginationModel.data?.lastPage != null) {

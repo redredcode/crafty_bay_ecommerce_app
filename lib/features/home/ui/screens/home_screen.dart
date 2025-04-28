@@ -2,6 +2,8 @@ import 'package:ecommerce_app/app/assets_path.dart';
 import 'package:ecommerce_app/features/common/ui/controllers/category_list_controller.dart';
 import 'package:ecommerce_app/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce_app/features/common/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce_app/features/product/data/models/product_list_pagination_model.dart';
+import 'package:ecommerce_app/features/product/ui/controllers/product_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -29,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
       TextEditingController();
   final SliderListController _sliderListController =
       Get.find<SliderListController>();
+  final ProductListController _productListController = Get.find<ProductListController>();
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +88,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               }),
               const SizedBox(height: 8),
+
+              // Popular
               HomeSectionHeader(
                 onTap: () {},
                 title: 'Popular',
@@ -93,29 +98,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [..._getProductList()],
+                  children: [..._getProductList([])],
+                  //children: [..._getProductList(_productListController.productList)],
                 ),
               ),
+
+              // Special
               HomeSectionHeader(
                 onTap: () {},
                 title: 'Special',
               ),
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [..._getProductList()],
-                ),
-              ),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [..._getProductList([])],
+                      //children: [..._getProductList(_productListController.productList)],
+                    ),
+                  ),
+
+              // New
               HomeSectionHeader(
                 onTap: () {},
                 title: 'New',
               ),
               SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [..._getProductList()],
-                ),
-              ),
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [..._getProductList([])],
+                      //children: [..._getProductList(_productListController.productList)],
+                    ),
+                  ),
             ],
           ),
         ),
@@ -167,16 +179,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return categoryList;
   }
 
-  List<Widget> _getProductList() {
-    List<Widget> productList = [];
-    for (int i = 0; i < 10; i++) {
-      productList.add(
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: ProductItemWidget(),
+  List<Widget> _getProductList(List<ProductModel> productList) {
+    List<Widget> list = [];
+    for (int i = 0; i < productList.length; i++) {
+      list.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ProductItemWidget(productModel: productList[i],),
         ),
       );
     }
-    return productList;
+    return list;
   }
 }

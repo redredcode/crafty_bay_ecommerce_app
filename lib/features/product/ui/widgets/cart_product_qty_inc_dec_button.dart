@@ -1,16 +1,16 @@
 import 'package:ecommerce_app/app/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CartProductQtyIncDecButton extends StatefulWidget {
-  const CartProductQtyIncDecButton({super.key, required this.onChange});
+class CartProductQuantityIncDecButton extends StatefulWidget {
+  const CartProductQuantityIncDecButton({super.key, required this.onChange});
 
   final Function(int) onChange;
 
   @override
-  State<CartProductQtyIncDecButton> createState() => _CartProductQtyIncDecButtonState();
+  State<CartProductQuantityIncDecButton> createState() => _CartProductQuantityIncDecButtonState();
 }
 
-class _CartProductQtyIncDecButtonState extends State<CartProductQtyIncDecButton> {
+class _CartProductQuantityIncDecButtonState extends State<CartProductQuantityIncDecButton> {
   int _count = 1;
 
   @override

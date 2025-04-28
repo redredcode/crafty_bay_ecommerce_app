@@ -2,26 +2,26 @@ import 'dart:ui';
 
 import '../../../common/data/models/category models/category_pagination_model.dart';
 
-class ProductDetailsModel {
+class ProductListPaginationModel {
   int? code;
   String? status;
   String? msg;
-  ProductDetails? data;
+  ProductModel? data;
 
-  ProductDetailsModel({this.code, this.status, this.msg, this.data});
+  ProductListPaginationModel({this.code, this.status, this.msg, this.data});
 
-  ProductDetailsModel.fromJson(Map<String, dynamic> json) {
+  ProductListPaginationModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
     msg = json['msg'];
-    data = json['data'] != null ? ProductDetails.fromJson(json['data']) : null;
+    data = json['data'] != null ? ProductModel.fromJson(json['data']) : null;
   }
 
   // Map<String, dynamic> toJson() {
   //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   data['code'] = code;
-  //   data['status'] = status;
-  //   data['msg'] = msg;
+  //   data['code'] = this.code;
+  //   data['status'] = this.status;
+  //   data['msg'] = this.msg;
   //   if (this.data != null) {
   //     data['data'] = this.data!.toJson();
   //   }
@@ -29,7 +29,7 @@ class ProductDetailsModel {
   // }
 }
 
-class ProductDetails {
+class ProductModel {
   String? sId;
   String? title;
   Brand? brand;
@@ -48,7 +48,7 @@ class ProductDetails {
   String? updatedAt;
   int? iV;
 
-  ProductDetails(
+  ProductModel(
       {this.sId,
         this.title,
         this.brand,
@@ -67,14 +67,14 @@ class ProductDetails {
         this.updatedAt,
         this.iV});
 
-  ProductDetails.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     title = json['title'];
     brand = json['brand'] != null ? new Brand.fromJson(json['brand']) : null;
     if (json['categories'] != null) {
       categories = <CategoryItemModel>[];
       json['categories'].forEach((v) {
-        categories!.add(new CategoryItemModel.fromJson(v));
+        categories!.add(CategoryItemModel.fromJson(v));
       });
     }
     slug = json['slug'];
@@ -84,7 +84,7 @@ class ProductDetails {
     // if (json['colors'] != null) {
     //   colors = <Color>[];
     //   json['colors'].forEach((v) {
-    //     colors!.add(new Color.fromJson(v));
+    //     colors!.add(Color.fromJson(v));
     //   });
     // }
     // if (json['sizes'] != null) {
@@ -106,6 +106,38 @@ class ProductDetails {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
   }
+
+  // Map<String, dynamic> toJson() {
+  //   final Map<String, dynamic> data = new Map<String, dynamic>();
+  //   data['_id'] = this.sId;
+  //   data['title'] = this.title;
+  //   if (this.brand != null) {
+  //     data['brand'] = this.brand!.toJson();
+  //   }
+  //   if (this.categories != null) {
+  //     data['categories'] = this.categories!.map((v) => v.toJson()).toList();
+  //   }
+  //   data['slug'] = this.slug;
+  //   data['meta_description'] = this.metaDescription;
+  //   data['description'] = this.description;
+  //   data['photos'] = this.photos;
+  //   if (this.colors != null) {
+  //     data['colors'] = this.colors!.map((v) => v.toJson()).toList();
+  //   }
+  //   if (this.sizes != null) {
+  //     data['sizes'] = this.sizes!.map((v) => v.toJson()).toList();
+  //   }
+  //   if (this.tags != null) {
+  //     data['tags'] = this.tags!.map((v) => v.toJson()).toList();
+  //   }
+  //   data['regular_price'] = this.regularPrice;
+  //   data['current_price'] = this.currentPrice;
+  //   data['quantity'] = this.quantity;
+  //   data['createdAt'] = this.createdAt;
+  //   data['updatedAt'] = this.updatedAt;
+  //   data['__v'] = this.iV;
+  //   return data;
+  // }
 }
 
 class Brand {
@@ -123,12 +155,12 @@ class Brand {
     icon = json['icon'];
   }
 
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = <String, dynamic>{};
-  //   data['_id'] = sId;
-  //   data['title'] = title;
-  //   data['slug'] = slug;
-  //   data['icon'] = icon;
-  //   return data;
-  // }
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = this.sId;
+    data['title'] = this.title;
+    data['slug'] = this.slug;
+    data['icon'] = this.icon;
+    return data;
+  }
 }

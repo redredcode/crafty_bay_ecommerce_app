@@ -59,7 +59,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     children: [
                                       // Product title
                                       Text(
-                                        controller.productDetails.title ?? '',
+                                        controller.productModel.title ?? '',
                                         style: textTheme.bodyLarge?.copyWith(
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -112,7 +112,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     ],
                                   ),
                                 ),
-                                CartProductQtyIncDecButton(
+                                CartProductQuantityIncDecButton(
                                   onChange: (int value) {},
                                 ),
                               ],
@@ -165,7 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               ),
                             ),
                             Text(
-                              controller.productDetails.description ?? '',
+                              controller.productModel.description ?? '',
                               style: const TextStyle(fontSize: 12, color: Colors.black45,),
                             ),
                           ],
@@ -175,7 +175,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                 ),
               ),
-              buildPriceContainer(controller.productDetails.currentPrice  ?? 0),
+              buildPriceContainer(controller.productModel.currentPrice  ?? 0),
             ],
           );
         }
